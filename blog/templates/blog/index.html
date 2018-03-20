@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+            <h1>Welcome to my blog</h1>
+            <br>
+            <a href="/blog/create_post/" class="btn btn-info btn-lg">Create Post</a>
+            <a href="/blog/create_category/" class="btn btn-info btn-lg">Create Category</a>
+            <a href="/" class="btn btn-info btn-lg">HomePage</a>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 10px;">
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <h2>Posts</h2>
+            {% if posts %}
+                <ul>
+                {% for post in posts %}
+                    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>
+                    There are no posts.
+                    <a href="/blog/create_post/">Click to create</a>
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="border: solid grey 5px;">
+            <h2>Categories</h2>
+            {% if categories %}
+                <ul>
+                {% for category in categories %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>
+                    There are no categories.
+                    <a href="/blog/create_category/">Click to create</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

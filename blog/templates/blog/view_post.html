@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load  static %}
+{% block content %}
+<div style="width: 100%; padding: 20px;" align="center">
+    <a href="http://localhost:8000/" class="btn btn-info btn-lg">Goto Home</a>
+</div>
+<div class="borderimg1">
+    <h1>{{post.title}}</h1>
+    <h5>Category : {{post.category.title}}</h5>
+    <h5>Posted at : {{post.posted}}</h5>
+    {{ post.body }}
+</div>
+{% if request.user.is_authenticated %}
+
+{% for comment in comment_list %}
+    <p><h5>{{comment.owner.username}}</h5>{{comment.text}}</p>
+{% endfor %}
+
+<form method="POST" action="/bookmarks/create/">
+    {% csrf_token %}
+    <input type="hidden" name="title" value="{{ post.title }}">
+    <input type="hidden" name="url" value="{{ post.get_absolute_url }}">
+    <input type="hidden" name="next" value="{{ post.get_absolute_url }}">
+    <button type="submit">Save this to bookmark</button>
+</form>
+
+<form method="POST" action="/comments/post/">
+    {% csrf_token %}
+    <input type="text" name="text" />
+    <input type="hidden" name="model" value="b">
+    <input type="hidden" name="object_id" value="{{ post.id }}">
+    <input type="hidden" name="next" value="{{ post.get_absolute_url }}">
+    <button type="submit">Comment</button>
+</form>
+
+
+{% else %}
+    Kindly <a href="/accounts/login/">login</a> to bookmark and/or comment in this
+{% endif %}
+{% endblock %}

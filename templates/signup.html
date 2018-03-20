@@ -1,0 +1,25 @@
+<!-- templates/signup.html -->
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+<style>
+#form_login {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    -moz-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+}
+</style>
+  <form id="form_login" method="post" style="padding: 20px; border: 5px solid black; border-radius: 20px; float:left; background: #eee;" >
+  <center><h2>Sign up</h2></center>
+  <BR>
+  {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
